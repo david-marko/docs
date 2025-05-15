@@ -19,7 +19,7 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Introduction",
         "groups": [
           {
             "group": "Get Started",
@@ -34,10 +34,24 @@
               "business/business",
               "business/pricing",
               "business/authentication",
-              "business/kyc",
               "business/API"
             ]
           },
+          {
+            "group": "Profile and Settings",
+            "pages": [
+              "business/settings/profile",
+              "business/settings/business",
+              "business/settings/payments",
+              "business/settings/team",
+              "business/settings/security"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Accounts",
+        "groups": [
           {
             "group": "Accounts",
             "pages": [
@@ -49,7 +63,12 @@
               "business/accounts/send",
               "business/accounts/transactions"
             ]
-          },
+          }
+        ]
+      },
+      {
+        "tab": "Paylinks",
+        "groups": [
           {
             "group": "Paylinks",
             "pages": [
@@ -58,15 +77,20 @@
               "business/paylinks/collection",
               "business/paylinks/donations"
             ]
-          },
+          }
+        ]
+      },
+      {
+        "tab": "KYC and Legal",
+        "groups": [
           {
-            "group": "Profile and Settings",
+            "group": "Legal and KYC Information",
             "pages": [
-              "business/settings/profile",
-              "business/settings/business",
-              "business/settings/payments",
-              "business/settings/team",
-              "business/settings/security"
+              "legal/kyc",
+              "legal/tos",
+              "legal/privacy",
+              "legal/data-policy",
+              "legal/banned"
             ]
           }
         ]
@@ -133,6 +157,11 @@
     "global": {
       "anchors": [
         {
+          "anchor": "Business",
+          "href": "https://business.sarafa.ss/",
+          "icon": "book-open-cover"
+        },
+        {
           "anchor": "Documentation",
           "href": "https://readme.sarafa.ss/",
           "icon": "book-open-cover"
@@ -140,22 +169,7 @@
         {
           "anchor": "Facebook",
           "href": "https://facebook.com/Sarafapay",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Terms of Service",
-          "href": "https://sarafa.ss/tos",
-          "icon": "newspaper"
-        },
-        {
-          "anchor": "Privacy Policy",
-          "href": "https://sarafa.ss/privacy",
-          "icon": "newspaper"
-        },
-        {
-          "anchor": "Data Policy",
-          "href": "https://sarafa.ss/data_policy",
-          "icon": "newspaper"
+          "icon": "facebook"
         }
       ]
     }
