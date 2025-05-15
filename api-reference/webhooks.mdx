@@ -1,5 +1,59 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: 'Webhooks'
+description: 'Webhooks and Callbacks'
 ---
+
+## Webhooks
+
+Sarafa can send real-time event notifications to your application via webhooks. This allows you to stay informed about important events, such as successful payments or transaction status updates, without the need for continuous polling of the API. You can configure a `callback_url` in your API requests to specify the endpoint where these webhook events should be sent.
+
+When a relevant event occurs, Sarafa will send an HTTP POST request to the `callback_url` you provided. The body of this request will contain a JSON object detailing the event.
+
+To receive webhooks, you need to:
+
+1.  Have a publicly accessible URL (`callback_url`) that can accept HTTP POST requests.
+2.  Configure this `callback_url` in the relevant API request when initiating an action that might trigger a webhook event (e.g., creating a payment link).
+3.  Implement logic on your server at the `callback_url` to receive and process the incoming webhook data.
+
+**Example of Including `callback_url` in an API Request (e.g., creating a payment link):**
+
+```json
+{
+  "title": "Payment for Order #123",
+  "amount": "25.00",
+  "currency": "USD",
+  "callback_url": "[https://your-application.com/webhooks/sarafa](https://your-application.com/webhooks/sarafa)"
+}
+```
+
+**Sample Webhook Payload (JSON):**
+
+The structure of the webhook payload will vary depending on the event that triggered it. Here's an example of a webhook payload for a successful payment on a collection link:
+
+```json
+{
+  "data": {
+    "payment_id": "tx_abcdef1234567890",
+    "amount": "25.00",
+    "currency": "USD",
+    "status": "completed",
+    ...
+    "created_at": "2025-05-15T10:00:00Z"
+  }
+}
+```
+
+**Explanation of the Sample Payload:**
+* `data`: Contains specific information related to the event. In this case, details about the successful payment.
+    * `payment_id`: The unique identifier for the payment.
+    * `collection_link_id`: The identifier of the collection link that was paid.
+    * `amount`: The amount of the payment.
+    * `currency`: The currency of the payment.
+    * `status`: The current status of the payment (`completed`).
+    * `payer`: Information about the payer (if available).
+    * `created_at`: The timestamp of when the event occurred.
+
+Your server at the `callback_url` should be configured to receive these POST requests, verify their authenticity (you might need to check for specific headers or a signature in the future), and then process the event data accordingly (e.g., update your order status, send a confirmation email).
+
+Sarafa's webhooks provide a reliable and efficient way to integrate real-time payment and transaction updates into your applications. Ensure your webhook endpoint is properly configured and can handle incoming POST requests.
 

@@ -1,5 +1,63 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: 'Keys and Base URL'
+description: ''
 ---
 
+To interact with the Sarafa API, you will utilize API keys for authentication. There are two primary types of API keys: **Secret Keys** and **Public Keys**.
+
+### Secret Keys
+
+* **Purpose:** Secret keys are used for all server-side API interactions. They grant full access to your Sarafa account's API functionalities and should be kept confidential and securely stored.
+* **Format:** Secret keys follow the UUID version 4 (Universally Unique Identifier) format.
+    ```
+    xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx
+    ```
+    Example: `a1b2c3d4-e5f6-4789-9012-34567890abcd`
+
+### Public Keys
+
+* **Purpose:** Public keys are specifically designed for use in client-side integrations, such as Sarafa's checkout widgets. They have restricted permissions and are safe to embed directly in your web applications.
+* **Format:** Public keys also follow the UUID version 4 format.
+    ```
+    xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx
+    ```
+    Example: `f9e8d7c6-b5a4-4321-fedc-ba9876543210`
+
+### Base URLs
+
+All API requests to Sarafa should be directed to the following base URL for the production environment:
+- https://api.sarafa.ss
+
+### API Key Usage
+
+You will need to include your API key in the header of every API request for authentication. The key should be passed in a header with the name `api-key`.
+
+**Example using `curl`:**
+
+```bash
+curl -X GET \
+     [https://api.sarafa.ss/v1/balances](https://api.sarafa.ss/v1/balances) \
+     -H 'api-key: your_secret_key_here'
+```     
+All responses from the Sarafa API will be formatted in JSON.
+
+Example JSON Response (Success - HTTP 200 OK):
+```json
+{
+  "status": "success",
+  "data": {
+    "USD": "125.50",
+    "KES": "15000.75",
+    "UGX": "450000.00",
+    "SSP": "60000.20"
+  }
+}
+```
+Error Handling
+The Sarafa API uses standard HTTP status codes to indicate the outcome of your requests.
+
+200 OK: This status code indicates that your request was successful and you are properly authenticated with a valid API key. The response body will contain the requested data in JSON format (as shown in the example above).
+
+401 Unauthorized: This status code indicates that your API key is invalid, missing, or has expired. Ensure you are including a valid API key in the api-key header of your request.
+
+When integrating with the Sarafa API, it's crucial to handle these HTTP status codes appropriately to ensure your application functions correctly and provides informative feedback. Always store your secret keys securely and only use public keys in client-side code.

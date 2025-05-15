@@ -1,5 +1,31 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: 'API and Transaction Limits'
+description: ''
 ---
 
+To ensure fair usage and maintain the stability of the Sarafa API, we implement rate limiting on the number of requests you can make within a specific time window. Currently, the API is limited to **3000 query requests every 10 minutes** per API key.
+
+If you exceed this limit, the API will return a **429 Too Many Requests** error response.
+
+**Example JSON Response (Too Many Requests - HTTP 429):**
+
+```json
+{
+  "status": "error",
+  "message": "Too many requests. Please wait and try again later."
+}
+```
+When you receive a 429 error, your application should implement a retry mechanism with an appropriate backoff strategy (e.g., waiting for a few seconds before attempting the request again). Avoid aggressive retries to prevent further overloading the API. You can monitor your API usage to stay within the defined limits.
+
+## Transfer and Collection Limits
+The following table outlines the default transfer and collection limits for SSP, UGX, and KES stablecoin wallets within the Sarafa platform. Please note that these limits may vary based on your business's KYC/KYB verification level. You can view your specific limits within your account dashboard.
+
+| Currency | Charge | Transfers |
+| --- | --- | --- |
+| SSP | 100-2,000,000 | 100-2,000,000 |
+| UGX | 1,000-4,500,000 | 1,000-4,500,000 |
+| KES | 100-150,000 | 100-150,000 |
+
+## Important Notes:
+
+These limits are per transaction are as per our integration partners and cannot be increased, changed or modified

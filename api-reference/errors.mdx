@@ -1,5 +1,40 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: 'Error Codes'
+description: ''
 ---
+
+## API Error Codes
+
+When interacting with the Sarafa API, you may encounter various error codes indicating issues with your requests. Understanding these codes will help you troubleshoot and resolve integration problems more effectively. Here's a list of common error codes and their descriptions:
+
+* **400 Bad Request:** The server could not understand the request due to invalid syntax or missing parameters. Review the request body and headers to ensure they conform to the API specification.
+
+* **401 Unauthorized:** The API key provided in the `api-key` header is invalid, missing, or has expired. Ensure you are using a valid and active API key.
+
+* **403 Forbidden:** Your API key is valid, but it does not have the necessary permissions to access the requested resource or perform the requested action. Check the scope and permissions associated with your API key.
+
+* **404 Not Found:** The requested resource could not be found on the server. Verify the API endpoint URL and ensure it is correct.
+
+* **405 Method Not Allowed:** The HTTP method used in the request (e.g., GET, POST, PUT, DELETE) is not supported for the requested resource. Refer to the API documentation for the allowed methods for each endpoint.
+
+* **409 Conflict:** The request could not be completed due to a conflict with the current state of the resource (e.g., attempting to create a resource that already exists).
+
+* **422 Unprocessable Entity:** The server understood the request, but it was unable to process the contained instructions. This is often due to validation errors in the request body (e.g., incorrect data types, invalid values). The response body will usually contain details about the validation failures.
+
+**Example JSON Response (Unprocessable Entity - HTTP 422):**
+
+```json
+{
+    "status": "error",
+    "message": "Invalid Data",
+}
+```
+
+* **429 Too Many Requests:** You have exceeded the API rate limit. Your application should implement a retry mechanism with an appropriate backoff strategy. Refer to the [Limits](#limits) section for more information.
+
+* **500 Internal Server Error:** The server encountered an unexpected error and was unable to fulfill the request. This is usually a server-side issue. If you encounter this error consistently, please contact our support team with the request details and the error response.
+
+* **503 Service Unavailable:** The server is temporarily unavailable due to maintenance or overload. Your application should retry the request after a short delay.
+
+When integrating with the Sarafa API, ensure your application is designed to handle these error codes gracefully and provide informative feedback or retry mechanisms as appropriate. Always consult the specific API endpoint documentation for details on potential errors and their structures.
 
