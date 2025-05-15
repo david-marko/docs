@@ -12,7 +12,10 @@
     "light": "/logo_white.png"
   },
   "favicon": "/logo_white.png",
-  
+  "appearance": {
+    "default": "light",
+    "strict": true
+  },
   "navigation": {
     "tabs": [
       {
@@ -27,14 +30,34 @@
             ]
           },
           {
-            "group": "Essentials",
+            "group": "Business",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "business/business",
+              "business/pricing",
+              "business/authentication",
+              "business/API"
+            ]
+          },
+          {
+            "group": "Accounts",
+            "pages": [
+              "business/recipients",
+              "business/paylinks",
+              "business/accounts/accounts",
+              "business/accounts/deposit",
+              "business/accounts/exchange",
+              "business/accounts/send",
+              "business/accounts/transactions"
+            ]
+          },
+          {
+            "group": "Profile and Settings",
+            "pages": [
+              "business/settings/profile",
+              "business/settings/business",
+              "business/settings/payments",
+              "business/settings/team",
+              "business/settings/security"
             ]
           }
         ]
@@ -45,7 +68,11 @@
           {
             "group": "API Documentation",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/introduction",
+              "api-reference/keys",
+              "api-reference/limits",
+              "api-reference/errors",
+              "api-reference/webhooks"
             ]
           },
           {
