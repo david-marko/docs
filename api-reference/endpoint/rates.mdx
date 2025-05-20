@@ -2,3 +2,36 @@
 title: 'Get Rates'
 openapi: 'GET /rates'
 ---
+
+### Description
+
+This endpoint retrieves the exchange rates for all currencies.
+
+### Request
+
+```http
+GET /rates
+```
+
+### Headers
+
+```http
+api-key: your_secret_key_here
+```
+
+### Response
+
+```json
+{
+    "status": true,
+    "message": "success",
+    "data": {
+        "USD": {
+            "USD": 1,
+            "KES": 128,
+            "UGX": 3680,
+            "SSP": 5250
+        }
+    }
+}
+```

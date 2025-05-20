@@ -2,3 +2,38 @@
 title: 'Wallet Balances'
 openapi: 'GET /wallet'
 ---
+
+### Description
+
+This endpoint retrieves the wallet balances of your business account. The wallet balances include details such as the currency and balance.
+
+### Request
+
+```http
+GET /wallet
+```
+
+### Headers
+
+```http
+api-key: your_secret_key_here
+```
+
+### Response
+
+```json
+{
+  "status": true,
+  "message": "success",
+  "data": {
+    "wallets": [
+        {
+            "currency": "USD", // string
+            "balance": 12550, // int
+        }
+        ...
+
+    ]
+  }
+}
+```

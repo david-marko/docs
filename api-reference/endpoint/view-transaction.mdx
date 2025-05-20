@@ -2,3 +2,35 @@
 title: 'View Transaction'
 openapi: 'GET /transactions/{transaction_id}'
 ---
+
+### Description
+
+This endpoint retrieves the details of a specific transaction in your business account. The transaction is identified by a unique ID and includes details such as the amount, currency, status, and creation date.
+
+### Request
+
+```http
+GET /transactions/{transaction_id}
+```
+
+### Headers
+
+```http
+api-key: your_secret_key_here
+```
+
+### Response
+
+```json
+{
+    "status": true,
+    "message": "success",
+    "data": {
+        "id": "TX_q2VolejRejNmGQ", // string
+        "amount": 100, // int
+        "currency": "SSP", // string
+        "status": "completed", // string
+        "created_at": "2025-05-20T05:12:57.822Z" // string
+    }
+}
+```

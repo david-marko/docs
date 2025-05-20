@@ -26,7 +26,7 @@ To interact with the Sarafa API, you will utilize API keys for authentication. T
 ### Base URLs
 
 All API requests to Sarafa should be directed to the following base URL for the production environment:
-- https://api.sarafa.ss
+- https://api.sarafa.ss/business
 
 ### API Key Usage
 
@@ -36,7 +36,7 @@ You will need to include your API key in the header of every API request for aut
 
 ```bash
 curl -X GET \
-     [https://api.sarafa.ss/v1/balances](https://api.sarafa.ss/v1/balances) \
+     https://api.sarafa.ss/business/wallet \
      -H 'api-key: your_secret_key_here'
 ```     
 All responses from the Sarafa API will be formatted in JSON.

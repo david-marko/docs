@@ -2,3 +2,48 @@
 title: 'Exchange'
 openapi: 'POST /exchange'
 ---
+
+### Description
+
+This endpoint exchanges a specific amount from one currency to another.
+
+### Request
+
+```http
+POST /exchange
+```
+
+### Headers
+
+```http
+api-key: your_secret_key_here
+```
+
+### Body
+
+```json
+{
+    "from_currency": "SSP", // string
+    "to_currency": "USD", // string
+    "amount": 520485, // int
+    "external_id": "something_hs_other", // your unique external id for the transaction
+    "only_fees": false, // if parsed as true, the endpoint will only return the fees for the transaction
+    "callback_url": "https://webhook.site/523a6b8e-3507-4074-881e-d0dbde2ae40f" // string optional
+}
+```
+
+### Response
+
+```json
+{
+    "status": true,
+    "message": "success",
+    "data": {
+        "id": "TX_q2VolejRejNmGQ", // string
+        "amount": 100, // int
+        "currency": "SSP", // string
+        "status": "completed", // string
+        "created_at": "2025-05-20T05:12:57.822Z" // string
+    }
+}
+```

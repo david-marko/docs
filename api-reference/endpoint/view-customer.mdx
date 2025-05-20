@@ -1,4 +1,51 @@
 ---
-title: 'View Customer'
+title: 'View Recipient'
 openapi: 'GET /customer/{customer_id}'
 ---
+
+### Description
+
+This endpoint retrieves the details of a specific recipient (customer) in your business account. The recipient is identified by a unique ID and includes their name, email, phone number.
+The endpoint also returns any transactions associated with the recipient.
+
+### Request
+
+```http
+GET /customer/{customer_id}
+```
+
+### Headers
+
+```http
+api-key: your_secret_key_here
+```
+
+### Response
+
+```json
+{
+    "status": true,
+    "message": "success",
+    "data": {
+        "details": {
+            "first_name": "John", // string
+            "last_name": "Doe", // string
+            "email": "john@example.com", // string
+            "phone": "+255712345678", // international format
+            "created_at": "2025-05-20T05:12:57.822Z", // string
+            "id": "CUS_q2VolejRejNmGQ", // string
+        },
+        "transactions": [
+            {
+                "id": "TX_q2VolejRejNmGQ", // string
+                "amount": 100, // int
+                "currency": "SSP", // string
+                "status": "completed", // string
+                "created_at": "2025-05-20T05:12:57.822Z" // string
+            }
+        ]
+    }
+}
+```
+
+

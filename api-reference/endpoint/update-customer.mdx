@@ -1,4 +1,43 @@
 ---
-title: 'Update Customer'
+title: 'Update Recipient'
 openapi: 'PATCH /customer/{customer_id}'
 ---
+
+### Description
+
+This endpoint updates an existing recipient (customer) in your business account. The recipient is identified by a unique ID and includes their name, email, phone number.
+
+### Request
+
+```http
+PATCH /customer/{customer_id}
+```
+
+### Headers
+
+```http
+api-key: your_secret_key_here
+```
+
+### Body
+
+```json
+{
+    "first_name": "John", // string
+    "last_name": "Doe", // string
+    "email": "john@example.com", // string optional
+    "phone": "+255712345678", // international format
+}
+```
+
+### Response
+
+```json
+{
+    "status": true,
+    "message": "success",
+    "data": {
+        "customerKey": "CUS_3GWpmbk5ezJn4K" // unique identifier for the customer
+    }
+}
+```

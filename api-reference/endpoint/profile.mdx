@@ -2,3 +2,36 @@
 title: 'View Profile'
 openapi: 'GET /profile'
 ---
+
+### Description
+
+This endpoint retrieves the profile information of your business account. The profile includes details such as the business name, logo, sector, verification status, account number, and creation date.
+
+### Request
+
+```http
+GET /profile
+```
+
+### Headers
+
+```http
+api-key: your_secret_key_here
+```
+
+### Response
+
+```json
+{
+  "status": true,
+  "message": "success",
+  "data": {
+    "name": "John Doe", // string
+    "logo": "https://example.com/logo.png", // string
+    "sector": "Retail", // string
+    "isVerified": true, // boolean
+    "account_no": "1234567890", // string
+    "createdAt": "2025-05-15T10:00:00Z", // string
+  }
+}
+```

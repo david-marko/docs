@@ -2,3 +2,38 @@
 title: 'Transactions'
 openapi: 'GET /transactions'
 ---
+
+### Description
+
+This endpoint retrieves a list of all transactions associated with your business account.
+
+### Request
+
+```http
+GET /transactions
+```
+
+### Headers
+
+```http
+api-key: your_secret_key_here
+```
+
+### Response
+
+```json
+{
+    "status": true,
+    "message": "success",
+    "data": [
+        {
+            "id": "TX_q2VolejRejNmGQ", // string
+            "amount": 100, // int
+            "currency": "SSP", // string
+            "status": "completed", // string
+            "created_at": "2025-05-20T05:12:57.822Z" // string
+        }
+        ...
+    ]
+}
+    

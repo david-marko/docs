@@ -2,3 +2,48 @@
 title: 'Charge'
 openapi: 'POST /charge'
 ---
+
+### Description
+
+This endpoint charges a customer for a specific amount in a specific currency.
+
+### Request
+
+```http
+POST /charge
+```
+
+### Headers
+
+```http
+api-key: your_secret_key_here
+```
+
+### Body
+
+```json
+{
+    "amount": 112, // int
+    "currency": "SSP", // string
+    "external_id": "xxxxxx", // your unique external id for the transaction
+    "phone": "+211920295416", // international format
+    "only_fees": false, // if parsed as true, the endpoint will only return the fees for the transaction
+    "callback_url": "https://webhook.site/0d2f052f-03b8-4b22-bba0-efc31f3c665c" // string optional
+}
+```
+
+### Response
+
+```json
+{
+    "status": true,
+    "message": "success",
+    "data": {
+        "id": "TX_q2VolejRejNmGQ", // string
+        "amount": 100, // int
+        "currency": "SSP", // string
+        "status": "completed", // string
+        "created_at": "2025-05-20T05:12:57.822Z" // string
+    }
+}
+```

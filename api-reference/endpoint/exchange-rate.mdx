@@ -2,3 +2,42 @@
 title: 'Exchange Rate'
 openapi: 'POST /rates'
 ---
+
+### Description
+
+This endpoint exchanges a specific amount from one currency to another.
+
+### Request
+
+```http
+POST /rates
+```
+
+### Headers
+
+```http
+api-key: your_secret_key_here
+```
+
+### Body
+
+```json
+{
+    "from_currency": "KES",
+    "to_currency": "SSP"
+}
+```
+
+### Response
+
+```json
+{
+    "status": true,
+    "message": "success",
+    "data": {
+        "from_currency": "KES",
+        "to_currency": "SSP",
+        "rate": 43.125
+    }
+}
+```

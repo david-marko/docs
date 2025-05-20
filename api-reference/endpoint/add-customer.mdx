@@ -1,4 +1,43 @@
 ---
-title: 'Add'
+title: 'Add Recipient'
 openapi: 'POST /customer'
 ---
+
+### Description
+
+This endpoint adds a new recipient (customer) to your business account. The recipient is identified by a unique ID and includes their name, email, phone number.
+
+### Request
+
+```http
+POST /customer
+```
+
+### Headers
+
+```http
+api-key: your_secret_key_here
+```
+
+### Body
+
+```json
+{
+    "first_name": "John", // string
+    "last_name": "Doe", // string
+    "email": "john@example.com", // string optional
+    "phone": "+255712345678", // international format
+}
+```
+
+### Response
+
+```json
+{
+    "status": true,
+    "message": "success",
+    "data": {
+        "customerKey": "CUS_3GWpmbk5ezJn4K" // unique identifier for the customer
+    }
+}
+```

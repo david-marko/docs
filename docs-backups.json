@@ -1,0 +1,181 @@
+{
+    "$schema": "https://mintlify.com/docs.json",
+    "theme": "mint",
+    "name": "Sarafa Documentation",
+    "colors": {
+      "primary": "#6c20f8",
+      "light": "#07C983",
+      "dark": "#0D9373"
+    },
+     "logo": {
+      "dark": "/logo_white.png",
+      "light": "/logo_white.png"
+    },
+    "favicon": "/logo_white.png",
+    "appearance": {
+      "default": "light",
+      "strict": true
+    },
+    "navigation": {
+      "tabs": [
+        {
+          "tab": "Introduction",
+          "groups": [
+            {
+              "group": "Get Started",
+              "pages": [
+                "index",
+                "quickstart"
+              ]
+            },
+            {
+              "group": "Business",
+              "pages": [
+                "business/business",
+                "business/pricing",
+                "business/authentication",
+                "business/API"
+              ]
+            },
+            {
+              "group": "Profile and Settings",
+              "pages": [
+                "business/settings/profile",
+                "business/settings/business",
+                "business/settings/payments",
+                "business/settings/team",
+                "business/settings/security"
+              ]
+            }
+          ]
+        },
+        {
+          "tab": "Accounts",
+          "groups": [
+            {
+              "group": "Accounts",
+              "pages": [
+                "business/reciepients",
+                "business/accounts/accounts",
+                "business/accounts/primary",
+                "business/accounts/deposit",
+                "business/accounts/exchange",
+                "business/accounts/send",
+                "business/accounts/transactions"
+              ]
+            }
+          ]
+        },
+        {
+          "tab": "Paylinks",
+          "groups": [
+            {
+              "group": "Paylinks",
+              "pages": [
+                "business/paylinks/paylinks",
+                "business/paylinks/invoices",
+                "business/paylinks/collection",
+                "business/paylinks/donations"
+              ]
+            }
+          ]
+        },
+        {
+          "tab": "KYC and Legal",
+          "groups": [
+            {
+              "group": "Legal and KYC Information",
+              "pages": [
+                "legal/kyc",
+                "legal/tos",
+                "legal/privacy",
+                "legal/data-policy",
+                "legal/banned"
+              ]
+            }
+          ]
+        },
+        {
+          "tab": "API Reference",
+          "groups": [
+            {
+              "group": "API Documentation",
+              "pages": [
+                "api-reference/introduction",
+                "api-reference/keys",
+                "api-reference/limits",
+                "api-reference/errors",
+                "api-reference/webhooks"
+              ]
+            },
+            {
+              "group": "Profile",
+              "pages": [
+                "api-reference/endpoint/profile",
+                "api-reference/endpoint/wallet"
+              ]
+            },
+            {
+              "group": "Reciepients",
+              "pages": [
+                "api-reference/endpoint/customers",
+                "api-reference/endpoint/add-customer",
+                "api-reference/endpoint/update-customer",
+                "api-reference/endpoint/view-customer"
+              ]
+            },
+            {
+              "group": "Charge",
+              "pages": [
+                "api-reference/endpoint/charge"
+              ]
+            },
+            {
+              "group": "Exchange",
+              "pages": [
+                "api-reference/endpoint/rates",
+                "api-reference/endpoint/exchange-rate",
+                "api-reference/endpoint/exchange"
+              ]
+            },
+            {
+              "group": "Transfer",
+              "pages": [
+                "api-reference/endpoint/transfer"
+              ]
+            },
+            {
+              "group": "Transactions",
+              "pages": [
+                "api-reference/endpoint/transactions",
+                "api-reference/endpoint/view-transaction"
+              ]
+            }
+          ]
+        }
+      ],
+      "global": {
+        "anchors": [
+          {
+            "anchor": "Business",
+            "href": "https://business.sarafa.ss/",
+            "icon": "book-open-cover"
+          },
+          {
+            "anchor": "Documentation",
+            "href": "https://readme.sarafa.ss/",
+            "icon": "book-open-cover"
+          },
+          {
+            "anchor": "Facebook",
+            "href": "https://facebook.com/Sarafapay",
+            "icon": "facebook"
+          }
+        ]
+      }
+    },
+    "footerSocials": {
+      "github": "https://github.com/sarafa-finance",
+      "linkedin": "https://linkedin.com/company/sarafa"
+    }
+  }
