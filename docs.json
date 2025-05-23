@@ -57,7 +57,25 @@
             "pages": [
               "business/reciepients",
               "business/accounts/accounts",
-              "business/accounts/primary"
+              "business/accounts/primary",
+              "business/accounts/deposit",
+              "business/accounts/exchange",
+              "business/accounts/send",
+              "business/accounts/transactions"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Paylinks",
+        "groups": [
+          {
+            "group": "Paylinks",
+            "pages": [
+              "business/paylinks/paylinks",
+              "business/paylinks/invoices",
+              "business/paylinks/collection",
+              "business/paylinks/donations"
             ]
           }
         ]
