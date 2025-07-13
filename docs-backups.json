@@ -74,7 +74,6 @@
               "pages": [
                 "business/paylinks/paylinks",
                 "business/paylinks/invoices",
-                "business/paylinks/collection",
                 "business/paylinks/donations"
               ]
             }
