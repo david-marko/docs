@@ -104,7 +104,8 @@
                 "api-reference/keys",
                 "api-reference/limits",
                 "api-reference/errors",
-                "api-reference/webhooks"
+                "api-reference/webhooks",
+                "api-reference/c2b"
               ]
             },
             {

@@ -1,0 +1,92 @@
+---
+title: 'C2B Merchants'
+description: 'Customer to Business for Merchants'
+---
+
+## Getting Started
+To enable C2B payments for your business, you must first be approved by the Sarafa team. The process is straightforward:
+
+1. Ensure you have a registered Sarafa business account.
+2. Have a high-quality logo ready for your business.
+3. Send an email to care@sarafa.ss with your request.
+
+Upon approval, you will be provided with a unique paybill number which customers can use to make payments to your business.
+
+## C2B Payment Feature Documentation
+The Sarafa C2B API is designed for businesses to collect payments from consumers. It operates as a pull-based payment system, where the consumer initiates the transaction, and your system is notified through a series of asynchronous communication steps.
+
+## Requesting a Payment
+To configure a C2B payment, you are required to provide two notification URLs. These URLs are essential for the asynchronous communication flow that powers the C2B process.
+
+**verification_url**: This URL receives a request from Sarafa to verify the transaction details before any funds are moved. This is your system's opportunity to validate the account number or paybill number and the transaction amount.
+
+**callback_url**: This URL is where Sarafa will send a confirmation once the payment has been successfully completed.
+
+## Verification Payload
+When a consumer initiates a payment, Sarafa will first send a POST request to your designated verification_url. This payload allows you to validate the account_number or paybill_number and ensure the amount is correct for the service or product being purchased.
+
+Example Payload:
+```json
+{
+  "paybill_number": "123123",
+  "account_number": "1234567890",
+  "amount": 5,
+  "currency": "USD"
+}
+```
+
+### Expected Verification Response
+Your API must respond to the verification request with a specific HTTP status code and a JSON payload to indicate whether the transaction should proceed.
+
+200 OK: The transaction is valid, and the payment can be processed. Your response body should contain a status of "success".
+
+Example Response:
+```json
+{
+  "status": "success",
+  "message": "Transaction verified and approved."
+}
+```
+
+400 Bad Request: The transaction details are invalid. Your response body should contain a status of "failed" and a clear message explaining the reason.
+
+Example Response:
+```json
+{
+  "status": "failed",
+  "message": "Invalid account/paybill number or incorrect amount."
+}
+```
+Any other HTTP response code will be treated as a failed verification, and Sarafa will not proceed with the payment.
+
+## Callback Payload
+After a successful payment, Sarafa will send a POST request to your callback_url to confirm receipt of the funds. This is the final step in the process, allowing your system to update its records with the confirmed payment.
+
+Example Payload:
+
+```json
+{
+  "transaction_id": "sar-123456789",
+  "status": "completed",
+  "amount": 50,
+  "currency": "USD",
+  "paybill_number": "123123",
+  "account_number": "1234567890",
+  "payment_date": "2025-09-17T11:04:00Z",
+  "metadata": {
+    "customer_email": "jdoe@gmail.com",
+    "customer_name": "John Doe"
+  }
+}
+```
+
+Expected Callback Response
+Your API must respond with a 200 OK status code to acknowledge receipt of the callback. This signals to Sarafa that your system has successfully recorded the payment confirmation. Any other response code will be considered a failure to receive the callback, and Sarafa may attempt to resend the notification.
+200 OK: Payment confirmation successfully received.
+Example Response:
+```json
+{
+  "status": "acknowledged",
+  "message": "Payment confirmation received."
+}
+```
