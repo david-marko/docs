@@ -10,7 +10,7 @@ To enable C2B payments for your business, you must first be approved by the Sara
 2. Have a high-quality logo ready for your business.
 3. Send an email to care@sarafa.ss with your request.
 
-Upon approval, you will be provided with a unique paybill number which customers can use to make payments to your business.
+Upon approval, you will be provided with a unique merchant number which customers can use to make payments to your business.
 
 ## C2B Payment Feature Documentation
 The Sarafa C2B API is designed for businesses to collect payments from consumers. It operates as a pull-based payment system, where the consumer initiates the transaction, and your system is notified through a series of asynchronous communication steps.
@@ -18,12 +18,12 @@ The Sarafa C2B API is designed for businesses to collect payments from consumers
 ## Requesting a Payment
 To configure a C2B payment, you are required to provide two notification URLs. These URLs are essential for the asynchronous communication flow that powers the C2B process.
 
-**verification_url**: This URL receives a request from Sarafa to verify the transaction details before any funds are moved. This is your system's opportunity to validate the account number or paybill number and the transaction amount.
+**verification_url**: This URL receives a request from Sarafa to verify the transaction details before any funds are moved. This is your system's opportunity to validate the account number and the transaction amount.
 
 **callback_url**: This URL is where Sarafa will send a confirmation once the payment has been successfully completed.
 
 ## Verification Payload
-When a consumer initiates a payment, Sarafa will first send a POST request to your designated verification_url. This payload allows you to validate the account_number or paybill_number and ensure the amount is correct for the service or product being purchased.
+When a consumer initiates a payment, Sarafa will first send a POST request to your designated verification_url. This payload allows you to validate the account_number and ensure the amount is correct for the service or product being purchased.
 
 Example Payload:
 ```json
@@ -55,7 +55,7 @@ Example Response:
 ```json
 {
   "status": "failed",
-  "message": "Invalid account/paybill number or incorrect amount."
+  "message": "Invalid account/merchant_id number or incorrect amount."
 }
 ```
 Any other HTTP response code will be treated as a failed verification, and Sarafa will not proceed with the payment.
