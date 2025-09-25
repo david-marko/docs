@@ -28,10 +28,11 @@ When a consumer initiates a payment, Sarafa will first send a POST request to yo
 Example Payload:
 ```json
 {
-  "paybill_number": "123123",
-  "account_number": "1234567890",
+  "merchant_id": "123123",
+  "account_no": "1234567890",
   "amount": 5,
-  "currency": "USD"
+  "currency": "USD",
+  "status": "validate"
 }
 ```
 
@@ -66,17 +67,12 @@ Example Payload:
 
 ```json
 {
-  "transaction_id": "sar-123456789",
-  "status": "completed",
-  "amount": 50,
+  "merchant_id": "123123",
+  "account_no": "1234567890",
+  "amount": 5,
   "currency": "USD",
-  "paybill_number": "123123",
-  "account_number": "1234567890",
-  "payment_date": "2025-09-17T11:04:00Z",
-  "metadata": {
-    "customer_email": "jdoe@gmail.com",
-    "customer_name": "John Doe"
-  }
+  "status": "completed",
+  "tx_id": "TX_89323892"
 }
 ```
 
