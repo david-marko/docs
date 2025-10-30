@@ -2,31 +2,90 @@
 title: 'C2B Merchants'
 description: 'Customer to Business for Merchants'
 ---
+## Overview
 
-## Getting Started
-To enable C2B payments for your business, you must first be approved by the Sarafa team. The process is straightforward:
+Customer-to-Business (C2B) payments enable Sarafa merchants to receive payments directly from agents in a secure and efficient manner. This documentation outlines the two methods available for accepting C2B payments.
 
-1. Ensure you have a registered Sarafa business account.
-2. Have a high-quality logo ready for your business.
-3. Send an email to care@sarafa.ss with your request.
+## How C2B Payments Work
 
-Upon approval, you will be provided with a unique merchant number which customers can use to make payments to your business.
+```
+┌─────────────┐         ┌─────────────┐         ┌─────────────┐
+│   Customer  │────────▶│    Agent    │────────▶│  Merchant   │
+│             │ Initiates│             │  Pays   │             │
+│             │  Payment │             │         │             │
+└─────────────┘         └─────────────┘         └─────────────┘
+                              │
+                              │ Validates & Confirms
+                              ▼
+                        ┌─────────────┐
+                        │   Sarafa    │
+                        │   System    │
+                        └─────────────┘
 
-## C2B Payment Feature Documentation
-The Sarafa C2B API is designed for businesses to collect payments from consumers. It operates as a pull-based payment system, where the consumer initiates the transaction, and your system is notified through a series of asynchronous communication steps.
+```
 
-## Requesting a Payment
-To configure a C2B payment, you are required to provide two notification URLs. These URLs are essential for the asynchronous communication flow that powers the C2B process.
+**Payment Flow:**
 
-**verification_url**: This URL receives a request from Sarafa to verify the transaction details before any funds are moved. This is your system's opportunity to validate the account number and the transaction amount.
+1. Customer initiates a payment request
+2. Agent processes the payment through Sarafa platform
+3. System validates transaction with merchant
+4. Payment is transferred to merchant account
+5. Merchant receives confirmation webhook
 
-**callback_url**: This URL is where Sarafa will send a confirmation once the payment has been successfully completed.
+---
 
-## Verification Payload
-When a consumer initiates a payment, Sarafa will first send a POST request to your designated verification_url. This payload allows you to validate the account_number and ensure the amount is correct for the service or product being purchased.
+## Prerequisites
 
-Example Payload:
+Before accepting C2B payments, merchants must:
+
+1. **Create a Merchant Account**
+    - Register at [merchant.sarafa.ss](https://merchant.sarafa.ss/)
+    - Complete account verification
+2. **Obtain Merchant Code**
+    - Upon registration, you'll receive a unique **6-digit merchant code**
+    - This code is used by agents to identify your business
+    - Keep this code secure and share only with authorized agents
+3. **Configure Webhook URLs** (for Method 1)
+    - Set up a validation URL to receive payment validation requests
+    - Set up a confirmation URL to receive payment success notifications
+
+---
+
+## Method 1: Direct Agent Payment
+
+This method allows agents to make payments directly using your merchant code.
+
+### Agent Setup
+
+Agents must download the Sarafa Agents app:
+
+- **Download:** [Google Play Store](https://play.google.com/store/apps/details?id=online.sarafa.sarafa_agents)
+
+### Payment Process
+
+1. **Agent Opens App**
+    - Agent launches the Sarafa Agents app
+    - Navigates to **Merchant Pay**
+2. **Enter Payment Details**
+    - **Merchant Code:** Your 6-digit merchant code
+    - **Account Number:** Transaction ID or unique identifier for the payment
+        - This can be an order number, invoice ID, or any reference number you provide to the customer
+3. **Validation Webhook**
+    - System sends a validation request to your configured webhook URL
+    - Your system should verify the transaction details and respond with approval or rejection
+4. **Complete Payment**
+    - If validation is successful, agent proceeds to complete the payment
+    - Funds are transferred to your merchant account
+5. **Confirmation Webhook**
+    - Upon successful payment, a confirmation webhook is sent to your system
+    - This contains the complete transaction details for your records
+
+### Webhook Integration
+
+**Validation Webhook (Step 3):**
+
 ```json
+POST {your_validation_url}
 {
   "merchant_id": "123123",
   "account_no": "1234567890",
@@ -36,12 +95,8 @@ Example Payload:
 }
 ```
 
-### Expected Verification Response
-Your API must respond to the verification request with a specific HTTP status code and a JSON payload to indicate whether the transaction should proceed.
+**Expected Response:**
 
-200 OK: The transaction is valid, and the payment can be processed. Your response body should contain a status of "success".
-
-Example Response:
 ```json
 {
   "status": "success",
@@ -49,23 +104,21 @@ Example Response:
 }
 ```
 
-400 Bad Request: The transaction details are invalid. Your response body should contain a status of "failed" and a clear message explaining the reason.
+400 Bad Request: The transaction details are invalid. Your response body should contain a status of “failed” and a clear message explaining the reason.Example Response:
 
-Example Response:
-```json
-{
-  "status": "failed",
-  "message": "Invalid account/merchant_id number or incorrect amount."
-}
+```jsx
+{  
+	"status": "failed",  
+	"message": "Invalid account/merchant_id number or incorrect amount."
+	}
 ```
+
 Any other HTTP response code will be treated as a failed verification, and Sarafa will not proceed with the payment.
 
-## Callback Payload
-After a successful payment, Sarafa will send a POST request to your callback_url to confirm receipt of the funds. This is the final step in the process, allowing your system to update its records with the confirmed payment.
-
-Example Payload:
+**Confirmation Webhook (Step 5):**
 
 ```json
+POST {your_confirmation_url}
 {
   "merchant_id": "123123",
   "account_no": "1234567890",
@@ -76,13 +129,132 @@ Example Payload:
 }
 ```
 
-Expected Callback Response
-Your API must respond with a 200 OK status code to acknowledge receipt of the callback. This signals to Sarafa that your system has successfully recorded the payment confirmation. Any other response code will be considered a failure to receive the callback, and Sarafa may attempt to resend the notification.
-200 OK: Payment confirmation successfully received.
-Example Response:
-```json
-{
-  "status": "acknowledged",
-  "message": "Payment confirmation received."
-}
+---
+
+## Method 2: Payment Widget Integration
+
+This method provides a seamless checkout experience by integrating the Sarafa payment widget into your website or application.
+
+### Implementation
+
+Redirect customers to the Sarafa checkout page with the following URL parameters:
+
+**Checkout URL:** `https://checkout.sarafa.ss`
+
+### Required URL Parameters
+
+| Parameter | Description | Example |
+| --- | --- | --- |
+| `amount` | Payment amount (in minor units) | `10000` (for 100.00) |
+| `currency` | Currency code | `SSP` |
+| `publicKey` | Your public key from merchant portal | `pk_live_abc123...` |
+| `reference` | Unique payment reference | `INV-2025-001` |
+| `successUrl` | Redirect URL on successful payment | `https://yoursite.com/success` |
+| `cancelUrl` | Redirect URL on cancelled payment | `https://yoursite.com/cancel` |
+
+### Example Integration
+
+```jsx
+// JavaScript redirect example
+const checkoutUrl = new URL('https://checkout.sarafa.ss');
+checkoutUrl.searchParams.append('amount', '10000');
+checkoutUrl.searchParams.append('currency', 'SSP');
+checkoutUrl.searchParams.append('publicKey', 'pk_live_your_key');
+checkoutUrl.searchParams.append('reference', 'INV-2025-001');
+checkoutUrl.searchParams.append('successUrl', 'https://yoursite.com/success');
+checkoutUrl.searchParams.append('cancelUrl', 'https://yoursite.com/cancel');
+
+window.location.href = checkoutUrl.toString();
 ```
+
+**Full URL Example:**
+
+```
+https://checkout.sarafa.ss?amount=10000&currency=SSP&publicKey=pk_live_abc123&reference=INV-2025-001&successUrl=https://yoursite.com/success&cancelUrl=https://yoursite.com/cancel
+
+```
+
+### Payment Flow
+
+1. **Customer Redirect**
+    - Customer is redirected to Sarafa checkout page
+    - Payment details are pre-filled from URL parameters
+2. **QR Code Display**
+    - Sarafa checkout page displays a QR code
+    - Customer presents their device to a nearby merchant/agent
+3. **Merchant Scans QR**
+    - Merchant scans the QR code using the Sarafa Agents app
+    - Payment details are automatically populated
+4. **Payment Completion**
+    - Merchant/agent confirms and processes the payment
+    - Transaction is completed in real-time
+5. **Customer Redirect**
+    - On success: Customer is redirected to your `successUrl`
+    - On cancel: Customer is redirected to your `cancelUrl`
+    - Payment reference and transaction details are included in the redirect
+
+### Success Callback
+
+When payment is successful, customer is redirected to your `successUrl` with query parameters:
+
+```
+https://yoursite.com/success?reference=INV-2025-001&transaction_id=TXN-789012&status=success
+```
+
+---
+
+## Benefits of Each Method
+
+### Method 1: Direct Agent Payment
+
+- ✅ Simple integration with webhooks
+- ✅ Direct communication between agent and merchant
+- ✅ Real-time validation of transactions
+- ✅ Ideal for in-person transactions
+
+### Method 2: Payment Widget
+
+- ✅ Seamless customer experience
+- ✅ QR code-based payment flow
+- ✅ Automatic redirect handling
+- ✅ Perfect for e-commerce integration
+
+---
+
+## Security Best Practices
+
+1. **Protect Your Credentials**
+    - Only use your Public Key and never the Private Key
+    - Use HTTPS for all webhook URLs
+2. **Validate Webhooks**
+    - Validate transaction amounts, currencies and references
+    - Implement idempotency to prevent duplicate processing. A transaction ID for every completed transaction will be provided.
+3. **Monitor Transactions**
+    - Regularly review transactions in the merchant portal
+    - Reconcile payments periodically.
+
+---
+
+## Support
+
+For technical support or questions:
+
+- Visit: [merchant.sarafa.ss](https://merchant.sarafa.ss/)
+- Contact Sarafa support team through care@sarafa.ss
+
+---
+
+## Getting Started Checklist
+
+- [ ]  Register merchant account at merchant.sarafa.ss
+- [ ]  Note down your 6-digit merchant code
+- [ ]  Obtain your public key from merchant portal
+- [ ]  Set up webhook URLs (for Method 1)
+- [ ]  Test payment flow with small amounts
+- [ ]  Integrate chosen method into your system
+- [ ]  Train staff on accepting C2B payments
+- [ ]  Go live and start accepting payments!
+
+---
+
+*Last Updated: October 2025*
